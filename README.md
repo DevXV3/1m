@@ -22,8 +22,11 @@ one-m/
 | `backoffice/` | 1MPRO back-office (buy/sell + production management). Clone of [thanaautho/1mpro_v2](https://github.com/thanaautho/1mpro_v2). API base: `https://test.1mpro.com`. | Nuxt 3 / Vue 3 / Vuetify (SPA) | Runs locally (`npm run dev` → http://localhost:3000) |
 | `website/` | Company website | _TBD_ | Planned |
 | `Ai1/` | Company AI project | _TBD_ | Scaffold |
+| `api/` | 1MPRO backend API (the server `backoffice` talks to). Clone of [thanaautho/1mpro_api_v3](https://github.com/thanaautho/1mpro_api_v3). | Fastify + Prisma (MySQL) + zod + JWT, TypeScript | Installed; boots on `:8080`, needs MySQL to be functional |
 
-> `backoffice/` is its own git repo (own remote); it is not tracked inside this root repo.
+> `backoffice/` and `api/` are each their own git repo (own remote); they are not tracked inside this root repo.
+>
+> **api backend setup:** `npm install` → `npx prisma generate` → copy `.env.example` to `.env` and set a real `DATABASE_URL` (MySQL). Dev: `npm run dev` (port 8080), Swagger at `/docs`. Boots without a DB (Prisma connects lazily; Bull/Redis is currently commented out in `src/app.ts`), but any DB-backed endpoint 500s until MySQL is reachable. Runs on Node 24. Read `api/CLAUDE.md` / `api/AGENTS.md` before editing (keep them in sync); DB access only via `src/utils/prisma.ts`; ~1,200 pre-existing type errors under strict, dev runs `--transpile-only`.
 >
 **Backoffice local setup (required to run):**
 > 1. `oneMFunction/config.ts` is **gitignored** (only the `config_DF.ts` template ships). Copy it: `cp oneMFunction/config_DF.ts oneMFunction/config.ts`. 45 files import `~~/oneMFunction/config`; without it the whole app fails to load config (API base `urlApi()` → `https://test.1mpro.com`).
