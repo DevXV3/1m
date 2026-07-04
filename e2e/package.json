@@ -1,0 +1,15 @@
+{
+  "name": "one-m-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-system E2E test harness for 1MPRO web + api — logs every action",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node run.js login-smoke",
+    "api": "node run.js api-smoke",
+    "login": "node run.js login-smoke"
+  },
+  "dependencies": {
+    "playwright": "^1.61.1"
+  }
+}
