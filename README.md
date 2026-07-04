@@ -2,6 +2,8 @@
 
 Company projects root for One M. Each task/sub-project lives in its own folder.
 
+> 📌 **New here (human or AI)? Read [`HANDOFF.md`](HANDOFF.md) first** — full company + 1MPRO program metadata, run instructions, DB safety rules, and pointers.
+
 ## Structure
 
 ```
