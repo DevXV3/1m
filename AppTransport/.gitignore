@@ -1,0 +1,26 @@
+# --- Android / Gradle ---
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# --- Large map data (regenerate with planetiler / build scripts; GitHub blocks >100MB) ---
+*.pmtiles
+mapdata/data/
+mapdata/planetiler.jar
+app/src/main/assets/thailand.pmtiles
+
+# --- Python routing engine ---
+routing/.venv/
+routing/cache/
+**/__pycache__/
+*.pyc
+
+# --- webapp runtime ---
+routing/webapp/server.log
+routing/webapp/server.err.log

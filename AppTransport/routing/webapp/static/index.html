@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>One M Transport</title>
+<link rel="stylesheet" href="/static/vendor/maplibre-gl.css" />
+<style>
+  :root { --brand:#1565C0; --brand2:#00897B; --bg:#f4f4f6; --card:#fff; --ink:#1a1a1a; --muted:#6b7280; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; height:100%; font-family:"Segoe UI",Roboto,"Noto Sans Thai",system-ui,sans-serif; color:var(--ink); background:#22252b; }
+  /* phone frame on wide screens, full-bleed on real phones */
+  #phone { position:relative; width:100%; max-width:412px; height:100dvh; margin:0 auto; background:var(--bg); overflow:hidden; }
+  @media(min-width:520px){ #phone { height:min(880px,96dvh); margin:2dvh auto; border-radius:34px; box-shadow:0 20px 60px rgba(0,0,0,.5); border:10px solid #0c0d10; } }
+  #map { position:absolute; inset:0; }
+
+  /* top search panel */
+  .top { position:absolute; top:0; left:0; right:0; padding:12px 12px 10px; background:linear-gradient(#fff,rgba(255,255,255,.96) 70%,rgba(255,255,255,0)); z-index:5; }
+  @media(min-width:520px){ .top{ border-radius:24px 24px 0 0; } }
+  .brand { font-weight:700; font-size:15px; color:var(--brand); margin:0 2px 8px; display:flex; align-items:center; gap:6px; }
+  .brand small { color:var(--muted); font-weight:500; }
+  .field { position:relative; margin-bottom:8px; }
+  .field .dot { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:10px; height:10px; border-radius:50%; }
+  .field.o .dot{ background:var(--brand2); } .field.d .dot{ background:#e53935; }
+  .field input { width:100%; border:1px solid #e2e4e9; background:#fff; border-radius:12px; padding:12px 40px 12px 34px; font-size:15px; outline:none; }
+  .field input:focus { border-color:var(--brand); box-shadow:0 0 0 3px rgba(21,101,192,.12); }
+  .swap { position:absolute; right:8px; top:26px; width:34px; height:34px; border:none; background:#eef1f6; border-radius:10px; font-size:16px; cursor:pointer; }
+  .sug { position:absolute; left:0; right:0; top:calc(100% + 3px); background:#fff; border:1px solid #e2e4e9; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.12); z-index:9; overflow:hidden; display:none; }
+  .sug div { padding:10px 12px; font-size:14px; cursor:pointer; border-bottom:1px solid #f1f2f5; }
+  .sug div:last-child{ border-bottom:none; } .sug div:hover{ background:#f6f8fb; }
+  .sug small { color:var(--muted); }
+
+  .chips { display:flex; gap:7px; overflow-x:auto; padding:2px; margin:2px 0 4px; scrollbar-width:none; }
+  .chips::-webkit-scrollbar{ display:none; }
+  .chip { flex:0 0 auto; border:1px solid #dfe3ea; background:#fff; border-radius:999px; padding:7px 13px; font-size:13px; cursor:pointer; white-space:nowrap; }
+  .chip.on { background:var(--brand); color:#fff; border-color:var(--brand); }
+  .row2 { display:flex; gap:8px; align-items:center; }
+  .go { flex:1; border:none; background:var(--brand); color:#fff; font-size:15px; font-weight:600; padding:13px; border-radius:12px; cursor:pointer; }
+  .go:disabled{ opacity:.6; }
+  .rt { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); user-select:none; }
+
+  /* bottom result sheet */
+  .sheet { position:absolute; left:0; right:0; bottom:0; background:var(--card); border-radius:20px 20px 0 0; box-shadow:0 -8px 30px rgba(0,0,0,.18); transform:translateY(105%); transition:transform .32s cubic-bezier(.2,.8,.2,1); z-index:6; padding:8px 16px calc(16px + env(safe-area-inset-bottom)); }
+  .sheet.show { transform:translateY(0); }
+  .grab { width:38px; height:4px; background:#d7dbe2; border-radius:99px; margin:6px auto 10px; }
+  .head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px; }
+  .veh { font-size:14px; color:var(--muted); }
+  .total { font-size:30px; font-weight:800; color:var(--brand); line-height:1; }
+  .total span { font-size:14px; font-weight:600; color:var(--muted); }
+  .stats { display:flex; gap:10px; margin-bottom:10px; }
+  .stat { flex:1; background:#f5f7fa; border-radius:12px; padding:10px 12px; }
+  .stat b { display:block; font-size:19px; } .stat small { color:var(--muted); }
+  .break { border-top:1px dashed #e5e7eb; padding-top:10px; font-size:13px; color:#374151; }
+  .break div { display:flex; justify-content:space-between; padding:2px 0; }
+  .break .tt { font-weight:700; color:var(--ink); border-top:1px solid #eee; margin-top:4px; padding-top:6px; }
+  .err { color:#c62828; font-size:14px; padding:14px 2px; }
+  .spin { position:absolute; inset:0; display:none; align-items:center; justify-content:center; background:rgba(255,255,255,.55); z-index:8; font-size:14px; color:var(--brand); font-weight:600; }
+  .spin.show{ display:flex; }
+</style>
+</head>
+<body>
+<div id="phone">
+  <div id="map"></div>
+  <div class="spin" id="spin">กำลังคำนวณเส้นทาง…</div>
+
+  <div class="top">
+    <div class="brand">🚚 One M Transport <small>ออฟไลน์</small></div>
+    <div class="field o">
+      <span class="dot"></span>
+      <input id="origin" placeholder="ต้นทาง (เช่น เมืองอุบลราชธานี)" autocomplete="off" />
+      <div class="sug" id="sugO"></div>
+      <button class="swap" id="swap" title="สลับ">⇅</button>
+    </div>
+    <div class="field d">
+      <span class="dot"></span>
+      <input id="dest" placeholder="ปลายทาง (เช่น เดชอุดม)" autocomplete="off" />
+      <div class="sug" id="sugD"></div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="row2">
+      <button class="go" id="go">คำนวณเส้นทาง</button>
+      <label class="rt"><input type="checkbox" id="rt" /> ไป-กลับ</label>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet">
+    <div class="grab"></div>
+    <div id="sheetBody"></div>
+  </div>
+</div>
+
+<script src="/static/vendor/maplibre-gl.js"></script>
+<script src="/static/vendor/pmtiles.js"></script>
+<script>
+const proto = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", proto.tile);
+
+const map = new maplibregl.Map({
+  container: "map",
+  style: "/static/style-web.json",
+  center: [104.8564, 15.2287], // Ubon Ratchathani
+  zoom: 11,
+  attributionControl: false,
+});
+map.addControl(new maplibregl.NavigationControl({showCompass:false}), "bottom-right");
+
+let vehicle = "6wheel";
+let oMarker=null, dMarker=null;
+
+// ---- vehicle chips ----
+fetch("/api/vehicles").then(r=>r.json()).then(d=>{
+  const box=document.getElementById("chips");
+  d.vehicles.forEach((v,i)=>{
+    const c=document.createElement("div");
+    c.className="chip"+(v.code===vehicle?" on":"");
+    c.textContent=v.label;
+    c.onclick=()=>{ vehicle=v.code; [...box.children].forEach(x=>x.classList.remove("on")); c.classList.add("on"); };
+    box.appendChild(c);
+  });
+});
+
+// ---- autocomplete ----
+function wireSug(inputId, sugId){
+  const inp=document.getElementById(inputId), sug=document.getElementById(sugId);
+  let t=null;
+  inp.addEventListener("input", ()=>{
+    clearTimeout(t);
+    const q=inp.value.trim();
+    if(q.length<2){ sug.style.display="none"; return; }
+    t=setTimeout(async()=>{
+      try{
+        const r=await fetch("/api/geocode?limit=6&q="+encodeURIComponent(q));
+        const d=await r.json();
+        if(!d.results||!d.results.length){ sug.style.display="none"; return; }
+        sug.innerHTML="";
+        d.results.forEach(p=>{
+          const el=document.createElement("div");
+          el.innerHTML=`${p.name} <small>${p.name_en||p.kind}</small>`;
+          el.onclick=()=>{ inp.value=p.name; sug.style.display="none"; };
+          sug.appendChild(el);
+        });
+        sug.style.display="block";
+      }catch(e){ sug.style.display="none"; }
+    },220);
+  });
+  inp.addEventListener("blur", ()=>setTimeout(()=>sug.style.display="none",180));
+}
+wireSug("origin","sugO"); wireSug("dest","sugD");
+
+document.getElementById("swap").onclick=()=>{
+  const o=document.getElementById("origin"), d=document.getElementById("dest");
+  [o.value,d.value]=[d.value,o.value];
+};
+
+// ---- route line layer ----
+function drawRoute(coords){ // coords: [[lat,lon],...]
+  const line = coords.map(c=>[c[1],c[0]]);
+  const gj={type:"Feature",geometry:{type:"LineString",coordinates:line}};
+  if(map.getSource("route")) map.getSource("route").setData(gj);
+  else{
+    map.addSource("route",{type:"geojson",data:gj});
+    map.addLayer({id:"route-cap",type:"line",source:"route",
+      paint:{"line-color":"#0b3d91","line-width":8,"line-opacity":.25,"line-blur":2},
+      layout:{"line-cap":"round","line-join":"round"}});
+    map.addLayer({id:"route",type:"line",source:"route",
+      paint:{"line-color":"#1565C0","line-width":5},
+      layout:{"line-cap":"round","line-join":"round"}});
+  }
+  const a=line[0], b=line[line.length-1];
+  if(oMarker)oMarker.remove(); if(dMarker)dMarker.remove();
+  oMarker=new maplibregl.Marker({color:"#00897B"}).setLngLat(a).addTo(map);
+  dMarker=new maplibregl.Marker({color:"#e53935"}).setLngLat(b).addTo(map);
+  const bb=line.reduce((x,c)=>x.extend(c), new maplibregl.LngLatBounds(a,a));
+  map.fitBounds(bb,{padding:{top:190,bottom:230,left:40,right:40},duration:700});
+}
+
+const spin=document.getElementById("spin");
+const sheet=document.getElementById("sheet");
+const body=document.getElementById("sheetBody");
+
+async function plan(){
+  const o=document.getElementById("origin").value.trim();
+  const d=document.getElementById("dest").value.trim();
+  if(!o||!d){ alert("กรอกต้นทางและปลายทาง"); return; }
+  spin.classList.add("show");
+  try{
+    const r=await fetch("/api/plan",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({origin:o,destination:d,vehicle_type:vehicle,round_trip:document.getElementById("rt").checked})});
+    if(!r.ok){ const e=await r.json(); showErr(e.detail||"หาเส้นทางไม่สำเร็จ"); return; }
+    const data=await r.json();
+    if(!data.route.found){ showErr(data.route.message||"ไม่พบเส้นทาง"); return; }
+    drawRoute(data.geometry);
+    showResult(data);
+  }catch(e){ showErr("เกิดข้อผิดพลาด: "+e); }
+  finally{ spin.classList.remove("show"); }
+}
+
+function fmt(n){ return n.toLocaleString("th-TH",{maximumFractionDigits:0}); }
+
+function showResult(data){
+  const rt=data.route, c=data.cost;
+  const hrs=Math.floor(rt.duration_min/60), mins=Math.round(rt.duration_min%60);
+  const dur = hrs>0 ? `${hrs} ชม. ${mins} น.` : `${mins} นาที`;
+  body.innerHTML = `
+    <div class="head">
+      <div>
+        <div class="veh">🚛 ${c.vehicle_label}${c.round_trip?" · ไป-กลับ":""}</div>
+        <div class="total">฿${fmt(c.total_thb)} <span>ค่าขนส่งโดยประมาณ</span></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${rt.distance_km.toFixed(1)} กม.</b><small>ระยะทาง${c.round_trip?" (เที่ยวเดียว)":""}</small></div>
+      <div class="stat"><b>${dur}</b><small>เวลาโดยประมาณ</small></div>
+    </div>
+    <div class="break">
+      <div><span>ระยะคิดเงิน (${fmt(c.billable_km)} กม. × ฿${c.distance_cost/ c.billable_km|0 || ''})</span><span>฿${fmt(c.distance_cost)}</span></div>
+      <div><span>ค่าเริ่มต้น</span><span>฿${fmt(c.base_fee)}</span></div>
+      ${c.fuel_surcharge?`<div><span>ค่าน้ำมัน</span><span>฿${fmt(c.fuel_surcharge)}</span></div>`:""}
+      ${c.total_thb>c.subtotal?`<div><span>ปรับเป็นค่าขั้นต่ำ</span><span>฿${fmt(c.min_charge)}</span></div>`:""}
+      <div class="tt"><span>รวมทั้งสิ้น</span><span>฿${fmt(c.total_thb)}</span></div>
+    </div>`;
+  sheet.classList.add("show");
+}
+function showErr(msg){ body.innerHTML=`<div class="err">⚠️ ${msg}</div>`; sheet.classList.add("show"); }
+
+document.getElementById("go").onclick=plan;
+</script>
+</body>
+</html>

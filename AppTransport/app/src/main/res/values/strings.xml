@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">One M Transport</string>
+    <string name="my_location">ตำแหน่งของฉัน</string>
+    <string name="download_offline">ดาวน์โหลดแผนที่บริเวณนี้ไว้ใช้ออฟไลน์</string>
+    <string name="download_progress">กำลังดาวน์โหลดแผนที่&#8230; %1$d%%</string>
+    <string name="download_done">ดาวน์โหลดแผนที่เสร็จแล้ว ใช้ออฟไลน์ได้เลย</string>
+    <string name="download_failed">ดาวน์โหลดไม่สำเร็จ: %1$s</string>
+    <string name="location_permission_needed">ต้องอนุญาตการเข้าถึงตำแหน่งเพื่อแสดงตำแหน่งของคุณ</string>
+</resources>
