@@ -64,6 +64,10 @@ async function waitStepper(page) {
       await page.waitForTimeout(600);
       const checked = await root.locator('button', { hasText: '☑' }).count();
       console.log('A.checked         :', checked, '| turns_during_pick:', completions - before, '(must be 0)');
+      await root.locator('button', { hasText: 'ถัดไป' }).click(); // -> review step
+      await page.waitForTimeout(600);
+      const reviewA = (await page.evaluate(() => document.body.innerText)).includes('สรุปคำตอบ');
+      console.log('A.review_step     :', reviewA);
       await root.locator('button', { hasText: 'ส่งคำตอบ' }).click();
       await page.waitForTimeout(10000);
       const after = await page.evaluate(() => document.body.innerText);
@@ -94,6 +98,10 @@ async function waitStepper(page) {
       await page.waitForTimeout(500);
       const backOk = await root.locator('button', { hasText: 'ย้อนกลับ' }).count();
       console.log('B.back_button     :', backOk > 0);
+      await root.locator('button', { hasText: 'ถัดไป' }).click(); // -> review step
+      await page.waitForTimeout(600);
+      const reviewB = (await page.evaluate(() => document.body.innerText)).includes('สรุปคำตอบ');
+      console.log('B.review_step     :', reviewB);
       await root.locator('button', { hasText: 'ส่งคำตอบ' }).click();
       await page.waitForTimeout(10000);
       const after = await page.evaluate(() => document.body.innerText);
