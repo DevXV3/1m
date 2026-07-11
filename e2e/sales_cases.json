@@ -1,9 +1,9 @@
 [
   {
     "id": "01-slab-complete",
-    "note": "info complete -> should quote immediately (98 THB/m, 120m = 11,760)",
-    "q": "ลูกค้าทั่วไป สั่งแผ่นพื้นหน้า 35 ยาวรวม 120 เมตร ส่งอำเภอเมือง ศรีสะเกษ จ่ายเงินสด ไม่ต้องติดตั้ง ทำใบเสนอราคาให้หน่อย",
-    "must": ["98", "11,?760", "VAT|ภาษี"],
+    "note": "info complete -> quote immediately, clean format, 98/m std (VAT-incl, no VAT line), 120m = 11,760",
+    "q": "ลูกค้าทั่วไป สั่งแผ่นพื้นหน้า 35 ยาวรวม 120 เมตร ส่งอำเภอเมือง ศรีสะเกษ ทำใบเสนอราคาให้หน่อย",
+    "must": ["98", "11,?760"],
     "mustNot": []
   },
   {
@@ -25,11 +25,11 @@
   },
   {
     "id": "04-power-pole-bulk",
-    "note": "power pole 1,390 x50 = 69,500 (company customer)",
-    "q": "บริษัทรับเหมาต้องการเสาไฟฟ้า 50 ต้น ส่งนครราชสีมา ขอใบเสนอราคา",
+    "note": "power pole from DB: 8m=1,980 / 9m=2,410 / 12m=5,500 (NOT the old 1,390)",
+    "q": "บริษัทรับเหมาต้องการเสาไฟฟ้า 8 เมตร 50 ต้น ส่งนครราชสีมา ขอใบเสนอราคา",
     "answers": { "_freetext": "50 ต้น" },
-    "must": ["1,?390", "69,?500"],
-    "mustNot": []
+    "must": ["1,?980", "99,?000"],
+    "mustNot": ["1,?390"]
   },
   {
     "id": "05-drain-curb-multi-item",
@@ -43,7 +43,7 @@
     "id": "06-credit-terms",
     "note": "credit workflow knowledge (IV -> receivable -> clear credit RE)",
     "q": "ลูกค้าเป็นบริษัทรับเหมา อยากซื้อแผ่นพื้นแบบเครดิต เงื่อนไขเครดิตของเราเป็นยังไง",
-    "must": ["เครดิต", "IV|ใบกำกับ|ลูกหนี้|เคลียร์เครดิต|RE"],
+    "must": ["เครดิต", "IV|ใบกำกับ|ลูกหนี้|เคลียร์เครดิต|RE|วงเงิน|ฝ่ายบัญชี"],
     "mustNot": []
   },
   {
@@ -57,7 +57,8 @@
     "id": "08-fence-post-math",
     "note": "1 rai = 40x40m, perimeter 160m, 2m spacing -> ~80-84 posts @65",
     "q": "ที่ดิน 1 ไร่ สี่เหลี่ยมจัตุรัส อยากล้อมรั้วลวดหนามเองทั้งแปลง ใช้เสารั้ว 3 นิ้ว ระยะห่างเสา 2 เมตร ต้องใช้เสากี่ต้น ค่าเสารวมเท่าไหร่",
-    "must": ["(79|80|81|82|84)\\s*ต้น", "65", "5,?[12-4]\\d\\d"],
+    "note2": "unspecified post length -> any standard 3in price valid (1.5m=65 / 2.0m=85 / 2.5m=105); test the post-count math + a real price + consistent total",
+    "must": ["(79|80|81|82|84)\\s*ต้น", "(65|85|105)", "(5,?2\\d\\d|6,?8\\d\\d|8,?4\\d\\d)"],
     "mustNot": []
   },
   {
@@ -74,5 +75,21 @@
     "answers": { "_freetext": "200 เมตร" },
     "must": ["93", "18,?600"],
     "mustNot": []
+  },
+  {
+    "id": "11-install-factual",
+    "note": "factual install Q -> answer directly (referral, no install charge), must NOT launch ask-set",
+    "q": "ลูกค้าถามว่าบริษัทมีบริการติดตั้งแผ่นพื้นไหม คิดค่าติดตั้งยังไง",
+    "must": ["แนะนำช่าง|ช่างแนะนำ|ช่างติดตั้ง", "ไม่.{0,6}คิดค่าติดตั้ง|ไม่ได้คิดค่าติดตั้ง|ไม่รับติดตั้ง|ไม่มีบริการติดตั้ง|ไม่คิดค่าติดตั้ง"],
+    "mustNot": [],
+    "mustNotAsk": true
+  },
+  {
+    "id": "12-price-factual",
+    "note": "factual price Q -> answer directly (98/แผ่น), must NOT launch ask-set",
+    "q": "แผ่นพื้นสำเร็จรูปหน้า 35 ราคาเท่าไหร่ต่อแผ่น",
+    "must": ["98"],
+    "mustNot": [],
+    "mustNotAsk": true
   }
 ]

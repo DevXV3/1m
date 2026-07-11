@@ -84,6 +84,7 @@ async function runCase(browser, kase, attempt) {
     const steppers = await page.locator('[data-pzset-root]').count();
     if (r.asked && (askSets > 1 || steppers > (r.asked ? 1 : 0) + 0 && steppers > 1)) r.reasked = true;
     if (kase.noReask && r.reasked) { r.pass = false; r.failures.push('re-asked after answering'); }
+    if (kase.mustNotAsk && r.asked) { r.pass = false; r.failures.push('asked a set for a factual question (should answer directly)'); }
 
     // empty-response transient: assistant produced nothing at all
     const tail = body.slice(-3500);
