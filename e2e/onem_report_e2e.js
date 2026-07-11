@@ -5,7 +5,7 @@
 const { chromium } = require('playwright');
 
 const BASE = 'http://127.0.0.1:3000';
-const MODEL = 'pingzy-sales';
+const MODEL = process.env.MODEL || 'pingzy-sales';
 const [email, password, which = 'AB'] = process.argv.slice(2);
 const OUTDIR = process.env.OUTDIR || __dirname + '/runs';
 
@@ -114,7 +114,7 @@ function frameStats(page) {
 
     if (which.includes('B')) {
       log('--- scenario B: dashboard embed ---');
-      await ask(page, 'เปิดแดชบอร์ดฝ่ายขาย');
+      await ask(page, process.env.DASH_Q || 'เปิดแดชบอร์ดของแผนกให้หน่อย');
       const body = await page.evaluate(() => document.body.innerText);
       const rawMarker = body.includes('[[PINGZY_DASH]]');
       const hasLink = body.includes('เปิดแดชบอร์ดในแท็บใหม่');

@@ -13,6 +13,11 @@ const CASES = JSON.parse(fs.readFileSync(__dirname + '/' + casesFile, 'utf8'))
   .filter(c => !onlyIds.length || onlyIds.includes(c.id));
 const GLOBAL_MUSTNOT = ['\\[\\[/?PINGZY', '<think>'];
 
+// MIN_SETTLE_MS: floor before we may declare the response settled — Claude tier
+// shows "Searching Knowledge…" quickly then thinks ~35s+, which fooled the
+// default stability check into exiting early.
+const MIN_SETTLE = parseInt(process.env.MIN_SETTLE_MS || '0', 10);
+
 async function settle(page, ms = 240000) {
   let prev = 0, stable = 0, grew = false, t0 = Date.now();
   while (Date.now() - t0 < ms) {
@@ -20,7 +25,7 @@ async function settle(page, ms = 240000) {
     const len = (await page.evaluate(() => document.body.innerText.length)) || 0;
     if (len > prev) { grew = true; stable = 0; }
     else if (grew && Date.now() - t0 > 25000) stable++;
-    if (grew && stable >= 4) break;
+    if (grew && stable >= 4 && Date.now() - t0 >= MIN_SETTLE) break;
     prev = len;
   }
   return grew;
@@ -85,6 +90,8 @@ async function runCase(browser, kase, attempt) {
 
     const tail = body.slice(-3500);
     if (!tail.replace(kase.q, '').trim() || body.length < kase.q.length + 120) r.empty = true;
+    // brain queue saturated by another client (shared 4-slot pool) — transient, retry
+    if (/server busy \(max \d+ concurrent\)/.test(body)) r.empty = true;
 
     for (const m of kase.must || []) {
       if (!new RegExp(m).test(body)) { r.pass = false; r.failures.push(`missing: ${m}`); }
