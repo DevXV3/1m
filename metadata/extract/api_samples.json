@@ -1,0 +1,2583 @@
+{
+ "base": "https://test.1mpro.com",
+ "n_endpoints_sampled": 26,
+ "samples": [
+  {
+   "method": "GET",
+   "path": "/api/user/20",
+   "sent_body_keys": [],
+   "ok": true,
+   "rows_returned": 1,
+   "meta": null,
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": {
+     "id": "int",
+     "fullname": "str",
+     "user_type": "str",
+     "Factory": {
+      "id": "int",
+      "fac_id": "str",
+      "fac_name": "str",
+      "address": "str",
+      "location": "str",
+      "logo": "str",
+      "tax": "str",
+      "tel": "str",
+      "isUse": "bool",
+      "branch_name": "str"
+     },
+     "username": "str",
+     "tel": "str",
+     "user_position": "str",
+     "user_department": "str",
+     "fac_id": "str",
+     "isUse": "bool",
+     "create_date": "str",
+     "last_update": "str",
+     "permissions": "NoneType",
+     "login_permission": "bool"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/building",
+   "sent_body_keys": [
+    "fac_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "page",
+    "ptype_id",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 4,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 1,
+    "totalCount": 4
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "building_name": "str",
+      "fac_id": "str",
+      "isUse": "bool",
+      "Plant": [
+       {
+        "id": "int",
+        "ProductType": {
+         "ptype_id": "str",
+         "ptype_name": "str",
+         "isUse": "bool",
+         "pm_type": "int",
+         "priority_index": "int"
+        },
+        "building_id": "int",
+        "store_id": "int",
+        "plant_name": "int",
+        "plant_width": "float",
+        "ptype_id": "str",
+        "remark": "str",
+        "isUse": "bool",
+        "c_unit": "NoneType",
+        "c_name": "NoneType",
+        "c_price": "NoneType",
+        "c_unit_type": "NoneType",
+        "c_by": "NoneType"
+       }
+      ],
+      "Production": [
+       {
+        "id": "int",
+        "po_date": "str",
+        "building_id": "int",
+        "fac_id": "str",
+        "po_id": "str",
+        "user_id": "int",
+        "po_status": "str",
+        "isUse": "bool"
+       }
+      ],
+      "create_date": "str",
+      "last_update": "NoneType"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/customer",
+   "sent_body_keys": [
+    "customer_contact",
+    "customer_know",
+    "date_end",
+    "date_start",
+    "fac_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "order_by",
+    "page",
+    "social_sale",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 1484,
+    "totalCount": 7420
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "isCredit": "bool",
+      "credit": "int",
+      "creditUsed": "int",
+      "cus_type": "str",
+      "creatorId": "int",
+      "createdAt": "str",
+      "updatedAt": "str",
+      "deletedAt": "NoneType",
+      "company_name": "str",
+      "address": "str",
+      "tel": "str",
+      "tax_number": "str",
+      "referent": "str",
+      "rolestatus": "NoneType",
+      "isUse": "bool",
+      "cus_id": "str",
+      "cus_name": "str",
+      "order_by": "str",
+      "social_sale": "str",
+      "customer_contact": "str",
+      "customer_know": "NoneType",
+      "CustomerAddress": [
+       {
+        "id": "int",
+        "isDefault": "bool",
+        "on_behalf_of": "str",
+        "cus_tax": "str",
+        "cus_company": "str",
+        "cus_contact": "str",
+        "cus_tel": "str",
+        "cus_province": "str",
+        "cus_amphure": "str",
+        "cus_tambon": "str",
+        "cus_zip_code": "str",
+        "cus_address": "str",
+        "cus_referent": "str",
+        "cus_ref_tel": "str",
+        "isUse": "bool"
+       }
+      ]
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/factory",
+   "sent_body_keys": [
+    "isUse",
+    "keyword",
+    "limit",
+    "page",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 3,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 1,
+    "totalCount": 3
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "fac_id": "str",
+      "fac_name": "str",
+      "id": "int",
+      "create_date": "str",
+      "last_update": "str",
+      "address": "str",
+      "location": "str",
+      "logo": "str",
+      "tax": "str",
+      "tel": "str",
+      "isUse": "bool",
+      "branch_name": "str"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/moving/shipping",
+   "sent_body_keys": [
+    "date_end",
+    "date_start",
+    "driver_id",
+    "fac_id",
+    "from_fac_id",
+    "from_store_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "moving_status",
+    "owner_moving_order",
+    "page",
+    "product_id",
+    "product_type",
+    "ptype_id",
+    "so_status",
+    "sort_by",
+    "sort_type",
+    "store_id",
+    "to_fac_id",
+    "to_store_id"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": [],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {}
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/moving/shipping-detail",
+   "sent_body_keys": [
+    "cus_back",
+    "fac_id",
+    "from_fac_id",
+    "from_store_id",
+    "isUse",
+    "is_shipping",
+    "keyword",
+    "limit",
+    "order_id",
+    "owner_moving_order",
+    "page",
+    "product_id",
+    "ptype_id",
+    "so_status",
+    "sort_by",
+    "sort_type",
+    "to_fac_id",
+    "to_store_id"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": [
+    "qty",
+    "qty_defective",
+    "qty_pickup",
+    "qty_send_success_count",
+    "qty_send_wait_confirm_count",
+    "qty_send_wait_count",
+    "qty_stock"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "qty": "NoneType",
+     "qty_stock": "NoneType",
+     "qty_defective": "NoneType",
+     "qty_send_success_count": "NoneType",
+     "qty_send_wait_confirm_count": "NoneType",
+     "qty_pickup": "NoneType",
+     "qty_send_wait_count": "NoneType"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/orders",
+   "sent_body_keys": [
+    "cus_back",
+    "cus_id",
+    "cus_type",
+    "date",
+    "date_end",
+    "date_start",
+    "driver_id",
+    "fac_id",
+    "isUse",
+    "is_reserve",
+    "keyword",
+    "keyword_name",
+    "limit",
+    "order_by",
+    "order_payment_type",
+    "order_status",
+    "owner_order",
+    "p_type",
+    "page",
+    "product_id",
+    "social_sale",
+    "sort_by",
+    "sort_type",
+    "status_payment",
+    "status_send",
+    "summary_sale_shipping",
+    "user_id"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 16,
+    "totalCount": 80
+   },
+   "sum_keys": [
+    "discount",
+    "item_discount",
+    "order_date_payment",
+    "order_date_payment_not_reserve",
+    "order_total",
+    "outstanding_balance",
+    "payment_ai",
+    "payment_hs",
+    "payment_hs_ai",
+    "payment_iv",
+    "total_before_send_wait_value",
+    "total_discount",
+    "total_not_shipping",
+    "total_not_shipping_cal",
+    "total_not_shipping_send",
+    "total_not_shipping_with_discount",
+    "total_paid",
+    "total_send_value",
+    "total_send_wait_confirm_value",
+    "total_send_wait_value",
+    "total_shipping",
+    "total_shipping_send"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "order_date": "str",
+      "discount": "int",
+      "discount_text": "NoneType",
+      "isvat": "bool",
+      "OrderDetail": [
+       {
+        "qty": "int",
+        "discount_unit": "int",
+        "face_stock": "int",
+        "create_date": "str",
+        "id": "int",
+        "order_num": "int",
+        "ptype_id": "int",
+        "product_id": "int",
+        "unit_price": "int",
+        "qty_balance": "int",
+        "total_price": "int",
+        "qty_send_wait_count": "int",
+        "qty_send_success_count": "int",
+        "qty_payment_wait_count": "int",
+        "qty_payment_success_count": "int",
+        "qty_before_send_wait_count": "int",
+        "order_id": "str",
+        "ptype_name": "str",
+        "ptype_pk": "str",
+        "product_name": "str",
+        "product_name_pk": "str",
+        "special": "str",
+        "dia_count": "int",
+        "disunit": "int",
+        "weight": "int",
+        "unit_name": "str",
+        "stock_name": "str",
+        "info_date": "NoneType",
+        "info_detail": "str",
+        "Product": {
+         "id": "int",
+         "product_id": "str",
+         "p_type": "int",
+         "pm_type": "int",
+         "p_name": "str",
+         "p_width": "float",
+         "p_size": "int",
+         "p_dia_size": "int",
+         "p_thickness": "float",
+         "p_area": "int",
+         "p_dia_count": "int",
+         "p_concrete": "float",
+         "unit_price": "int",
+         "cost_price": "int",
+         "unit_name": "str",
+         "special": "str",
+         "p_weight": "int",
+         "p_unit": "int",
+         "ptype_id": "str",
+         "ptype_name": "str",
+         "pstype_id": "NoneType",
+         "pstype_name": "NoneType",
+         "spacial": "NoneType",
+         "isUse": "bool",
+         "create_date": "str",
+         "last_update": "str"
+        },
+        "ProductType": {
+         "id": "int",
+         "ptype_id": "str",
+         "pm_type": "int",
+         "ptype_name": "str",
+         "priority_index": "int",
+         "isUse": "bool",
+         "create_date": "str",
+         "last_update": "str"
+        }
+       }
+      ],
+      "create_date": "str",
+      "Customer": {
+       "id": "int",
+       "isCredit": "bool",
+       "credit": "int",
+       "creditUsed": "int",
+       "cus_type": "str",
+       "creatorId": "int",
+       "createdAt": "str",
+       "updatedAt": "str",
+       "deletedAt": "NoneType",
+       "company_name": "str",
+       "address": "str",
+       "tel": "str",
+       "tax_number": "str",
+       "referent": "str",
+       "rolestatus": "NoneType",
+       "isUse": "bool",
+       "cus_id": "str",
+       "cus_name": "str",
+       "order_by": "str",
+       "social_sale": "str",
+       "customer_contact": "str",
+       "customer_know": "NoneType"
+      },
+      "CustomerAddress": {
+       "on_behalf_of": "str",
+       "cus_tax": "str",
+       "cus_company": "str",
+       "cus_contact": "str",
+       "cus_tel": "str",
+       "cus_province": "str",
+       "cus_amphure": "str",
+       "cus_tambon": "str",
+       "cus_zip_code": "str",
+       "cus_address": "str",
+       "cus_referent": "str",
+       "cus_ref_tel": "str",
+       "isUse": "bool"
+      },
+      "UserOrders": {
+       "id": "int",
+       "fullname": "str"
+      },
+      "OwnerOrders": {
+       "username": "str",
+       "fullname": "str"
+      },
+      "order_id": "str",
+      "re_number": "str",
+      "cus_id": "int",
+      "cusaddress_id": "int",
+      "user_id": "int",
+      "cus_back": "str",
+      "cus_type": "str",
+      "pay_type": "str",
+      "qt_id": "str",
+      "qt_date": "str",
+      "date_confirm": "int",
+      "vat": "int",
+      "remark": "str",
+      "seller_remark": "str",
+      "order_status": "str",
+      "order_by": "str",
+      "social_sale": "str",
+      "customer_contact": "str",
+      "isUse": "bool",
+      "emp_name": "str",
+      "owner_order": "int",
+      "customer_name": "str",
+      "on_behalf_of": "str",
+      "customer_phone": "str",
+      "address": "str",
+      "order_total": "int",
+      "referent": "str",
+      "company_name": "str",
+      "tax_number": "str",
+      "total_paid": "int",
+      "outstanding_balance": "int",
+      "total_shipping": "int",
+      "total_not_shipping": "int",
+      "total_shipping_send": "int",
+      "total_not_shipping_send": "int",
+      "status_payment": "str",
+      "status_send": "str",
+      "fac_id": "str",
+      "ai_total": "int",
+      "ai_paid": "int",
+      "ai_balance": "int",
+      "discount_balance": "int",
+      "discount_paid": "int",
+      "is_reserve": "bool",
+      "reserve_date": "NoneType",
+      "order_date_payment": "int",
+      "first_payment_date": "str",
+      "item_discount": "int",
+      "total_discount": "int"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "order_total": "int",
+     "order_date_payment": "int",
+     "total_paid": "int",
+     "outstanding_balance": "int",
+     "total_shipping": "int",
+     "total_not_shipping": "int",
+     "total_not_shipping_send": "int",
+     "total_shipping_send": "int",
+     "discount": "int",
+     "item_discount": "int",
+     "total_discount": "int",
+     "total_not_shipping_with_discount": "int",
+     "total_not_shipping_cal": "int",
+     "total_send_wait_confirm_value": "int",
+     "total_send_wait_value": "int",
+     "total_before_send_wait_value": "int",
+     "total_send_value": "int",
+     "order_date_payment_not_reserve": "int",
+     "payment_ai": "int",
+     "payment_hs": "int",
+     "payment_iv": "int",
+     "payment_hs_ai": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/payment",
+   "sent_body_keys": [
+    "cus_id",
+    "date_end",
+    "date_start",
+    "fac_id",
+    "isUse",
+    "iv_payment_status",
+    "keyword",
+    "limit",
+    "order_id",
+    "p_type",
+    "page",
+    "payment_status",
+    "payment_type",
+    "pm_type",
+    "product_id",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": [
+    "order_total",
+    "payment"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "order_total": "int",
+     "payment": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/product",
+   "sent_body_keys": [
+    "fac_id",
+    "isUse",
+    "is_product",
+    "keyword",
+    "limit",
+    "p_type",
+    "page",
+    "ptype_id",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 176,
+    "totalCount": 880
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "product_id": "str",
+      "p_name": "str",
+      "p_width": "float",
+      "p_size": "float",
+      "p_dia_size": "int",
+      "p_thickness": "float",
+      "p_area": "int",
+      "p_dia_count": "int",
+      "p_concrete": "int",
+      "p_weight": "float",
+      "p_unit": "int",
+      "p_type": "int",
+      "pm_type": "int",
+      "ptype_name": "str",
+      "unit_name": "str",
+      "unit_price": "int",
+      "cost_price": "int",
+      "ptype_id": "str",
+      "special": "str",
+      "isUse": "bool",
+      "create_date": "str",
+      "last_update": "str",
+      "ProductType": {
+       "id": "int",
+       "ptype_id": "str",
+       "pm_type": "int",
+       "ptype_name": "str",
+       "priority_index": "int",
+       "isUse": "bool",
+       "create_date": "str",
+       "last_update": "str"
+      },
+      "ProductMainType": {
+       "id": "int",
+       "pmtype_id": "str",
+       "pmtype_name": "str",
+       "priority_index": "int",
+       "isUse": "bool",
+       "create_date": "str",
+       "last_update": "str"
+      }
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/product/unit",
+   "sent_body_keys": [
+    "isUse",
+    "is_commission_unit_type",
+    "keyword",
+    "limit",
+    "page",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 5,
+    "totalCount": 24
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "unit_name": "str",
+      "isUse": "bool",
+      "is_commission_unit_type": "bool",
+      "create_date": "str",
+      "last_update": "NoneType"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/production",
+   "sent_body_keys": [
+    "building_id",
+    "date_end",
+    "date_start",
+    "fac_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "page",
+    "po_status",
+    "product_id",
+    "product_type",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/productmaintype",
+   "sent_body_keys": [
+    "fac_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "page",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 4,
+    "totalCount": 17
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "pmtype_id": "str",
+      "pmtype_name": "str",
+      "isUse": "bool",
+      "priority_index": "int",
+      "create_date": "str",
+      "last_update": "NoneType",
+      "ProductType": [
+       {
+        "id": "int",
+        "ptype_id": "str",
+        "pm_type": "int",
+        "ptype_name": "str",
+        "priority_index": "int",
+        "isUse": "bool",
+        "create_date": "str",
+        "last_update": "str"
+       }
+      ]
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/producttype",
+   "sent_body_keys": [
+    "fac_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "page",
+    "pm_type",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 5,
+    "totalCount": 25
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "ptype_id": "str",
+      "ptype_name": "str",
+      "isUse": "bool",
+      "pm_type": "int",
+      "priority_index": "int",
+      "create_date": "str",
+      "last_update": "str",
+      "ProductMainType": {
+       "id": "int",
+       "pmtype_id": "str",
+       "pmtype_name": "str",
+       "priority_index": "int",
+       "isUse": "bool",
+       "create_date": "str",
+       "last_update": "NoneType"
+      }
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/rcx/claim/shipping",
+   "sent_body_keys": [
+    "date_end",
+    "date_start",
+    "fac_id",
+    "group_type",
+    "isUse",
+    "keyword",
+    "limit",
+    "not_out",
+    "order_status",
+    "page",
+    "product_id",
+    "product_type",
+    "ref_order",
+    "so_status",
+    "sort_by",
+    "sort_type",
+    "store_id"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": [],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {}
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/rcx/exchange/shipping",
+   "sent_body_keys": [
+    "date_end",
+    "date_start",
+    "fac_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "order_status",
+    "page",
+    "product_id",
+    "product_type",
+    "so_status",
+    "sort_by",
+    "sort_type",
+    "store_id"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": [],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {}
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/report/report-production-v2",
+   "sent_body_keys": [
+    "building_id",
+    "date_end",
+    "date_start",
+    "fac_id",
+    "interval",
+    "limit",
+    "page",
+    "plant_id",
+    "product_id",
+    "ptype_id"
+   ],
+   "ok": true,
+   "rows_returned": 4,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 1,
+    "totalCount": 4
+   },
+   "sum_keys": [
+    "production_after_defective_qty",
+    "production_after_defective_value",
+    "production_building_1_qty",
+    "production_building_1_value",
+    "production_building_2_qty",
+    "production_building_2_value",
+    "production_building_3_qty",
+    "production_building_3_value",
+    "production_building_4_qty",
+    "production_building_4_value",
+    "production_building_5_qty",
+    "production_building_5_value",
+    "production_building_total_qty",
+    "production_building_total_value",
+    "production_by_building_1_qty",
+    "production_by_building_1_value",
+    "production_by_building_2_qty",
+    "production_by_building_2_value",
+    "production_by_building_3_qty",
+    "production_by_building_3_value",
+    "production_by_building_4_qty",
+    "production_by_building_4_value",
+    "production_by_building_5_qty",
+    "production_by_building_5_value",
+    "production_defective_other_qty",
+    "production_defective_other_value",
+    "production_defective_production_qty",
+    "production_defective_production_value",
+    "production_defective_store_1_qty",
+    "production_defective_store_1_value",
+    "production_defective_store_2_qty",
+    "production_defective_store_2_value",
+    "production_defective_store_3_qty",
+    "production_defective_store_3_value",
+    "production_defective_store_4_qty",
+    "production_defective_store_4_value",
+    "production_defective_store_5_qty",
+    "production_defective_store_5_value",
+    "production_defective_total_qty",
+    "production_defective_total_value",
+    "production_qty",
+    "production_remain_qty",
+    "production_remain_value",
+    "production_value"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "date": "str",
+      "fac_id": "str",
+      "production_qty": "int",
+      "production_value": "int",
+      "production_remain_qty": "int",
+      "production_remain_value": "int",
+      "production_building_1_remain_qty": "int",
+      "production_building_1_remain_value": "int",
+      "production_building_2_remain_qty": "int",
+      "production_building_2_remain_value": "int",
+      "production_building_3_remain_qty": "int",
+      "production_building_3_remain_value": "int",
+      "production_building_4_remain_qty": "int",
+      "production_building_4_remain_value": "int",
+      "production_building_5_remain_qty": "int",
+      "production_building_5_remain_value": "int",
+      "production_building_99_remain_qty": "int",
+      "production_building_99_remain_value": "int",
+      "production_building_id_1": "int",
+      "production_building_id_2": "int",
+      "production_building_id_3": "int",
+      "production_building_id_4": "int",
+      "production_building_id_5": "int",
+      "production_building_id_99": "int",
+      "production_store_id_1": "int",
+      "production_store_id_2": "int",
+      "production_store_id_3": "int",
+      "production_store_id_4": "int",
+      "production_store_id_5": "int",
+      "production_store_id_99": "int",
+      "production_building_total_qty": "int",
+      "production_by_building_1_qty": "int",
+      "production_by_building_2_qty": "int",
+      "production_by_building_3_qty": "int",
+      "production_by_building_4_qty": "int",
+      "production_by_building_5_qty": "int",
+      "production_by_building_99_qty": "int",
+      "production_by_building_1_value": "int",
+      "production_by_building_2_value": "int",
+      "production_by_building_3_value": "int",
+      "production_by_building_4_value": "int",
+      "production_by_building_5_value": "int",
+      "production_by_building_99_value": "int",
+      "production_building_1_qty": "int",
+      "production_building_2_qty": "int",
+      "production_building_3_qty": "int",
+      "production_building_4_qty": "int",
+      "production_building_5_qty": "int",
+      "production_building_99_qty": "int",
+      "production_building_1_value": "int",
+      "production_building_2_value": "int",
+      "production_building_3_value": "int",
+      "production_building_4_value": "int",
+      "production_building_5_value": "int",
+      "production_building_99_value": "int",
+      "production_building_total_value": "int",
+      "production_defective_production_qty": "int",
+      "production_defective_production_value": "int",
+      "production_defective_other_qty": "int",
+      "production_defective_other_value": "int"
+     }
+    ],
+    "sum": {
+     "production_qty": "int",
+     "production_value": "int",
+     "production_after_defective_value": "int",
+     "production_defective_other_qty": "int",
+     "production_defective_other_value": "int",
+     "production_defective_production_qty": "int",
+     "production_defective_production_value": "int",
+     "production_defective_store_1_qty": "int",
+     "production_defective_store_1_value": "int",
+     "production_defective_store_2_qty": "int",
+     "production_defective_store_2_value": "int",
+     "production_defective_store_3_qty": "int",
+     "production_defective_store_3_value": "int",
+     "production_defective_store_4_qty": "int",
+     "production_defective_store_4_value": "int",
+     "production_defective_store_5_qty": "int",
+     "production_defective_store_5_value": "int",
+     "production_defective_total_qty": "int",
+     "production_defective_total_value": "int",
+     "production_remain_qty": "int",
+     "production_remain_value": "int",
+     "production_building_1_qty": "int",
+     "production_building_1_value": "int",
+     "production_building_2_qty": "int",
+     "production_building_2_value": "int",
+     "production_building_3_qty": "int",
+     "production_building_3_value": "int",
+     "production_building_4_qty": "int",
+     "production_building_4_value": "int",
+     "production_building_5_qty": "int",
+     "production_building_5_value": "int",
+     "production_building_total_qty": "int",
+     "production_building_total_value": "int",
+     "production_by_building_1_qty": "int",
+     "production_by_building_1_value": "int",
+     "production_by_building_2_qty": "int",
+     "production_by_building_2_value": "int",
+     "production_by_building_3_qty": "int",
+     "production_by_building_3_value": "int",
+     "production_by_building_4_qty": "int",
+     "production_by_building_4_value": "int",
+     "production_by_building_5_qty": "int",
+     "production_by_building_5_value": "int",
+     "production_after_defective_qty": "int"
+    },
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/report/summary-customer-sale",
+   "sent_body_keys": [
+    "cus_type",
+    "date_end",
+    "date_start",
+    "fac_id",
+    "group_by",
+    "interval",
+    "keyword",
+    "limit",
+    "page",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 26,
+    "totalCount": 129
+   },
+   "sum_keys": [
+    "order_discount",
+    "order_total",
+    "outstanding_balance",
+    "payment_ai",
+    "payment_discount",
+    "payment_dr",
+    "payment_hs",
+    "payment_iv",
+    "payment_sr",
+    "payment_total",
+    "total_paid"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "date": "str",
+      "cus_id": "int",
+      "fac_id": "str",
+      "cus_type": "str",
+      "payment_ai": "int",
+      "payment_hs": "int",
+      "payment_discount": "int",
+      "payment_ai_discount": "int",
+      "payment_iv": "int",
+      "payment_sr": "int",
+      "payment_dr": "int",
+      "payment_total": "int",
+      "order_total": "int",
+      "order_discount": "int",
+      "outstanding_balance": "int",
+      "total_paid": "int",
+      "Customer": {
+       "id": "int",
+       "creatorId": "int",
+       "createdAt": "str",
+       "updatedAt": "str",
+       "deletedAt": "NoneType",
+       "cus_id": "str",
+       "cus_name": "str",
+       "cus_type": "str",
+       "company_name": "str",
+       "address": "str",
+       "tel": "str",
+       "tax_number": "str",
+       "referent": "str",
+       "rolestatus": "NoneType",
+       "isUse": "bool",
+       "credit": "int",
+       "creditUsed": "int",
+       "isCredit": "bool",
+       "order_by": "str",
+       "social_sale": "str",
+       "customer_contact": "str",
+       "customer_know": "NoneType"
+      }
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "payment_hs": "int",
+     "payment_ai": "int",
+     "payment_iv": "int",
+     "payment_sr": "int",
+     "payment_dr": "int",
+     "payment_total": "int",
+     "order_total": "float",
+     "order_discount": "float",
+     "outstanding_balance": "float",
+     "total_paid": "int",
+     "payment_discount": "float"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/report/summary-product-sale",
+   "sent_body_keys": [
+    "date_end",
+    "date_start",
+    "fac_id",
+    "group_type",
+    "interval",
+    "keyword",
+    "limit",
+    "page",
+    "product_id",
+    "ptype_id",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 17,
+    "totalCount": 82
+   },
+   "sum_keys": [
+    "payment_hs",
+    "payment_total"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "date": "str",
+      "fac_id": "str",
+      "product_id": "int",
+      "ptype_id": "int",
+      "pmtype_id": "int",
+      "qty": "int",
+      "price": "int",
+      "payment_hs": "int",
+      "payment_iv": "int",
+      "payment_sr": "int",
+      "payment_dr": "int",
+      "payment_total": "int",
+      "Product": {
+       "id": "int",
+       "product_id": "str",
+       "p_type": "int",
+       "pm_type": "int",
+       "p_name": "str",
+       "p_width": "float",
+       "p_size": "int",
+       "p_dia_size": "int",
+       "p_thickness": "float",
+       "p_area": "int",
+       "p_dia_count": "int",
+       "p_concrete": "float",
+       "unit_price": "int",
+       "cost_price": "float",
+       "unit_name": "str",
+       "special": "str",
+       "p_weight": "int",
+       "p_unit": "int",
+       "ptype_id": "str",
+       "ptype_name": "str",
+       "pstype_id": "NoneType",
+       "pstype_name": "NoneType",
+       "spacial": "NoneType",
+       "isUse": "bool",
+       "create_date": "str",
+       "last_update": "str"
+      },
+      "ProductType": {
+       "id": "int",
+       "ptype_id": "str",
+       "pm_type": "int",
+       "ptype_name": "str",
+       "priority_index": "int",
+       "isUse": "bool",
+       "create_date": "str",
+       "last_update": "str"
+      },
+      "ProductMainType": {
+       "id": "int",
+       "pmtype_id": "str",
+       "pmtype_name": "str",
+       "priority_index": "int",
+       "isUse": "bool",
+       "create_date": "str",
+       "last_update": "str"
+      }
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "payment_hs": "int",
+     "payment_total": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/report/summary-product-type-sale-ranking",
+   "sent_body_keys": [
+    "date",
+    "fac_id",
+    "interval"
+   ],
+   "ok": true,
+   "rows_returned": 16,
+   "meta": null,
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "payment_total": "int",
+      "ptype_id": "int",
+      "ptype_name": "str"
+     }
+    ]
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/report/summary-production-product",
+   "sent_body_keys": [
+    "date_end",
+    "date_start",
+    "fac_id",
+    "interval",
+    "limit",
+    "page",
+    "product_id"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 194,
+    "totalCount": 967
+   },
+   "sum_keys": [
+    "defective",
+    "defective_value",
+    "stock",
+    "stock_value"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "date": "str",
+      "fac_id": "str",
+      "product_id": "int",
+      "stock": "int",
+      "defective": "int",
+      "price": "int",
+      "stock_value": "int",
+      "defective_value": "int",
+      "df_by_delivery": "int",
+      "df_by_pickup": "int",
+      "df_by_po": "int",
+      "df_by_stock": "int",
+      "df_by_pobeforestock": "int",
+      "df_by_mixconcrete": "int",
+      "df_by_maintainance": "int",
+      "df_by_qc": "int",
+      "df_by_manager": "int",
+      "df_by_sale": "int",
+      "df_by_producttest": "int",
+      "df_by_conversion": "int",
+      "df_by_moving": "int",
+      "df_by_delivery_value": "int",
+      "df_by_pickup_value": "int",
+      "df_by_po_value": "int",
+      "df_by_stock_value": "int",
+      "df_by_pobeforestock_value": "int",
+      "df_by_mixconcrete_value": "int",
+      "df_by_maintainance_value": "int",
+      "df_by_qc_value": "int",
+      "df_by_manager_value": "int",
+      "df_by_sale_value": "int",
+      "df_by_producttest_value": "int",
+      "df_by_conversion_value": "int",
+      "df_by_moving_value": "int",
+      "production_qty": "int",
+      "production_value": "int",
+      "production_remain_qty": "int",
+      "production_remain_value": "int",
+      "Product": {
+       "id": "int",
+       "product_id": "str",
+       "p_type": "int",
+       "pm_type": "int",
+       "p_name": "str",
+       "p_width": "float",
+       "p_size": "int",
+       "p_dia_size": "int",
+       "p_thickness": "float",
+       "p_area": "int",
+       "p_dia_count": "int",
+       "p_concrete": "float",
+       "unit_price": "int",
+       "cost_price": "float",
+       "unit_name": "str",
+       "special": "str",
+       "p_weight": "int",
+       "p_unit": "int",
+       "ptype_id": "str",
+       "ptype_name": "str",
+       "pstype_id": "NoneType",
+       "pstype_name": "NoneType",
+       "spacial": "NoneType",
+       "isUse": "bool",
+       "create_date": "str",
+       "last_update": "str"
+      }
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "stock": "int",
+     "defective": "int",
+     "stock_value": "int",
+     "defective_value": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/report/summary-sale",
+   "sent_body_keys": [
+    "date_end",
+    "date_start",
+    "fac_id",
+    "interval",
+    "limit",
+    "page",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 1,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 1,
+    "totalCount": 1
+   },
+   "sum_keys": [
+    "customer_count",
+    "order_discount",
+    "order_total",
+    "payment_ai",
+    "payment_count",
+    "payment_discount",
+    "payment_dr",
+    "payment_hs",
+    "payment_hs_ai",
+    "payment_iv",
+    "payment_re",
+    "payment_so",
+    "payment_sr",
+    "payment_total"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "date": "str",
+      "customer_count": "int",
+      "orders_count": "int",
+      "type_shipping_value": "int",
+      "type_not_shipping_value": "int",
+      "fac_id": "str",
+      "payment_count": "int",
+      "payment_hs": "int",
+      "payment_hs_ai": "int",
+      "payment_discount": "int",
+      "payment_ai": "int",
+      "payment_so": "int",
+      "payment_re": "int",
+      "payment_sr": "int",
+      "payment_dr": "int",
+      "payment_total": "int",
+      "order_total": "int",
+      "order_discount": "int",
+      "payment_iv": "int"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "customer_count": "int",
+     "payment_hs": "int",
+     "payment_count": "int",
+     "payment_hs_ai": "int",
+     "payment_discount": "int",
+     "payment_ai": "int",
+     "payment_so": "int",
+     "payment_re": "int",
+     "payment_sr": "int",
+     "payment_dr": "int",
+     "payment_total": "int",
+     "order_total": "int",
+     "payment_iv": "int",
+     "order_discount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/shipping",
+   "sent_body_keys": [
+    "cus_back",
+    "fac_id",
+    "isUse",
+    "is_shipping",
+    "keyword",
+    "limit",
+    "order_id",
+    "page",
+    "product_id",
+    "so_status",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/stockinout",
+   "sent_body_keys": [
+    "building_id",
+    "date",
+    "date_end",
+    "date_start",
+    "df_by",
+    "df_responsible_list",
+    "fac_id",
+    "in_out",
+    "in_out_type",
+    "in_type",
+    "inspector_id",
+    "isUse",
+    "is_df",
+    "is_df_store",
+    "is_tmp_store",
+    "keyword",
+    "limit",
+    "not_contractor_defective_after",
+    "p_type",
+    "page",
+    "plant_id",
+    "product_id",
+    "product_type",
+    "production_id",
+    "ref_claim_id",
+    "referent",
+    "sort_by",
+    "sort_type",
+    "status",
+    "store_id",
+    "user_id"
+   ],
+   "ok": true,
+   "rows_returned": 0,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": true,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": null,
+    "pageCount": 0,
+    "totalCount": 0
+   },
+   "sum_keys": [
+    "confirm_count",
+    "confirm_defective",
+    "confirm_defective_after",
+    "confirm_defective_before",
+    "count",
+    "defective",
+    "last_df_value",
+    "last_st_value",
+    "production_count",
+    "production_value",
+    "qty",
+    "stock_wait_count",
+    "stock_wait_count_value",
+    "sum_after",
+    "sum_after_value",
+    "sum_po",
+    "sum_po_value"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "NoneType",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "qty": "int",
+     "confirm_count": "int",
+     "confirm_defective": "int",
+     "confirm_defective_before": "int",
+     "confirm_defective_after": "int",
+     "count": "int",
+     "defective": "int",
+     "last_st_value": "int",
+     "last_df_value": "int",
+     "sum_po": "int",
+     "sum_po_value": "int",
+     "sum_after": "int",
+     "sum_after_value": "int",
+     "stock_wait_count": "int",
+     "stock_wait_count_value": "int",
+     "production_count": "int",
+     "production_value": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/stocklist",
+   "sent_body_keys": [
+    "fac_id",
+    "group_by",
+    "hide",
+    "isUse",
+    "is_temp",
+    "keyword",
+    "limit",
+    "p_type",
+    "page",
+    "pm_type",
+    "pmtype_id",
+    "product_id",
+    "ptype_id",
+    "sort_by",
+    "sort_type",
+    "store_id"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 145,
+    "totalCount": 723
+   },
+   "sum_keys": [
+    "available",
+    "reserve",
+    "reserve_moving",
+    "shipping",
+    "shipping_moving",
+    "stock",
+    "stock_value"
+   ],
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "fac_id": "str",
+      "product_id": "int",
+      "stock": "int",
+      "shipping": "int",
+      "reserve": "int",
+      "order_qty": "int",
+      "reserve_moving": "int",
+      "shipping_moving": "int",
+      "shipping_wait": "int",
+      "shipping_before_wait": "int",
+      "shipping_not_success": "int",
+      "production_wait_count": "int",
+      "temp": "int",
+      "available": "int",
+      "defective": "int",
+      "Product": {
+       "product_id": "str",
+       "p_name": "str",
+       "p_width": "float",
+       "p_size": "int",
+       "p_dia_size": "int",
+       "p_thickness": "float",
+       "p_area": "int",
+       "p_dia_count": "int",
+       "p_concrete": "float",
+       "p_weight": "int",
+       "p_unit": "int",
+       "p_type": "int",
+       "pm_type": "int",
+       "ptype_name": "str",
+       "unit_name": "str",
+       "unit_price": "int",
+       "cost_price": "int",
+       "ptype_id": "str",
+       "special": "str",
+       "isUse": "bool"
+      },
+      "Factory": {
+       "fac_id": "str",
+       "fac_name": "str",
+       "address": "str",
+       "location": "str",
+       "logo": "str",
+       "tax": "str",
+       "tel": "str",
+       "isUse": "bool",
+       "branch_name": "str"
+      },
+      "StockByStore": [
+       {
+        "id": "int",
+        "stocklist_id": "int",
+        "store_id": "int",
+        "stock": "int",
+        "df_by_po": "int",
+        "df_by_after": "int",
+        "df_by_other": "int",
+        "df_by_stock": "int",
+        "df_by_pickup": "int",
+        "df_by_delivery": "int",
+        "df_by_pobeforestock": "int",
+        "df_by_mixconcrete": "int",
+        "df_by_maintainance": "int",
+        "df_by_qc": "int",
+        "df_by_manager": "int",
+        "df_by_sale": "int",
+        "df_by_producttest": "int",
+        "df_by_conversion": "int",
+        "df_by_moving": "int",
+        "temp": "int",
+        "last_st_value": "int",
+        "last_df_value": "int",
+        "last_df": "int",
+        "last_temp": "int",
+        "isUse": "bool",
+        "create_date": "str",
+        "last_update": "NoneType",
+        "Store": {
+         "id": "int",
+         "fac_id": "str",
+         "is_df_store": "bool",
+         "is_tmp_store": "bool",
+         "responsible_list": [
+          "..."
+         ],
+         "store_name": "str",
+         "bg_color": "str",
+         "isUse": "bool",
+         "create_date": "str",
+         "last_update": "str"
+        }
+       }
+      ],
+      "last_update": "NoneType",
+      "isUse": "bool",
+      "stock_target": "int",
+      "stock_value": "int",
+      "create_date": "str"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    },
+    "sum": {
+     "stock": "int",
+     "stock_value": "int",
+     "reserve": "int",
+     "reserve_moving": "int",
+     "shipping": "int",
+     "shipping_moving": "int",
+     "available": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/store",
+   "sent_body_keys": [
+    "fac_id",
+    "isUse",
+    "is_df_store",
+    "is_tmp_store",
+    "keyword",
+    "limit",
+    "page",
+    "sort_by",
+    "sort_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 2,
+    "totalCount": 7
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "store_name": "str",
+      "fac_id": "str",
+      "bg_color": "str",
+      "Factory": {
+       "fac_id": "str",
+       "fac_name": "str",
+       "address": "str",
+       "location": "str",
+       "logo": "str",
+       "tax": "str",
+       "tel": "str",
+       "isUse": "bool",
+       "branch_name": "str"
+      },
+      "isUse": "bool",
+      "is_df_store": "bool",
+      "is_tmp_store": "bool",
+      "responsible_list": [
+       "str"
+      ],
+      "create_date": "str",
+      "last_update": "NoneType"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/user",
+   "sent_body_keys": [
+    "fac_id",
+    "isUse",
+    "keyword",
+    "limit",
+    "page",
+    "sort_by",
+    "sort_type",
+    "user_type"
+   ],
+   "ok": true,
+   "rows_returned": 5,
+   "meta": {
+    "isFirstPage": true,
+    "isLastPage": false,
+    "currentPage": 1,
+    "previousPage": null,
+    "nextPage": 2,
+    "pageCount": 10,
+    "totalCount": 46
+   },
+   "sum_keys": null,
+   "response_shape": {
+    "status": "bool",
+    "message": "str",
+    "result": [
+     {
+      "id": "int",
+      "fullname": "str",
+      "user_type": "str",
+      "Factory": {
+       "id": "int",
+       "fac_id": "str",
+       "fac_name": "str",
+       "address": "str",
+       "location": "str",
+       "logo": "str",
+       "tax": "str",
+       "tel": "str",
+       "isUse": "bool",
+       "branch_name": "str"
+      },
+      "username": "str",
+      "tel": "str",
+      "user_position": "str",
+      "user_department": "str",
+      "fac_id": "str",
+      "isUse": "bool",
+      "create_date": "str",
+      "last_update": "str",
+      "permissions": "NoneType",
+      "login_permission": "bool"
+     }
+    ],
+    "meta": {
+     "isFirstPage": "bool",
+     "isLastPage": "bool",
+     "currentPage": "int",
+     "previousPage": "NoneType",
+     "nextPage": "int",
+     "pageCount": "int",
+     "totalCount": "int"
+    }
+   }
+  }
+ ],
+ "enum_vocab": {
+  "cus_type": [
+   "COMPANY",
+   "CONTRACTOR",
+   "GENERAL",
+   "SHOP"
+  ],
+  "df_by_conversion": [
+   "0"
+  ],
+  "df_by_conversion_value": [
+   "0"
+  ],
+  "df_by_delivery": [
+   "0"
+  ],
+  "df_by_delivery_value": [
+   "0"
+  ],
+  "df_by_maintainance": [
+   "0"
+  ],
+  "df_by_maintainance_value": [
+   "0"
+  ],
+  "df_by_manager": [
+   "0"
+  ],
+  "df_by_manager_value": [
+   "0"
+  ],
+  "df_by_mixconcrete": [
+   "0"
+  ],
+  "df_by_mixconcrete_value": [
+   "0"
+  ],
+  "df_by_moving": [
+   "0"
+  ],
+  "df_by_moving_value": [
+   "0"
+  ],
+  "df_by_pickup": [
+   "0"
+  ],
+  "df_by_pickup_value": [
+   "0"
+  ],
+  "df_by_po": [
+   "0"
+  ],
+  "df_by_po_value": [
+   "0"
+  ],
+  "df_by_pobeforestock": [
+   "0"
+  ],
+  "df_by_pobeforestock_value": [
+   "0"
+  ],
+  "df_by_producttest": [
+   "0"
+  ],
+  "df_by_producttest_value": [
+   "0"
+  ],
+  "df_by_qc": [
+   "0"
+  ],
+  "df_by_qc_value": [
+   "0"
+  ],
+  "df_by_sale": [
+   "0"
+  ],
+  "df_by_sale_value": [
+   "0"
+  ],
+  "df_by_stock": [
+   "0"
+  ],
+  "df_by_stock_value": [
+   "0"
+  ],
+  "first_payment_date": [
+   "2026-07-02T01:16:37.000Z",
+   "2026-07-06T04:10:52.000Z",
+   "2026-07-06T04:20:28.000Z",
+   "2026-07-06T06:20:00.000Z",
+   "2026-07-09T03:48:50.000Z"
+  ],
+  "isUse": [
+   "False",
+   "True"
+  ],
+  "is_commission_unit_type": [
+   "False"
+  ],
+  "is_df_store": [
+   "False",
+   "True"
+  ],
+  "is_reserve": [
+   "False"
+  ],
+  "is_tmp_store": [
+   "False",
+   "True"
+  ],
+  "order_by": [
+   "1",
+   "2",
+   "3"
+  ],
+  "order_date_payment": [
+   "10000",
+   "14000",
+   "15000",
+   "4500",
+   "7000"
+  ],
+  "order_payment_type": [
+   "CASH"
+  ],
+  "order_status": [
+   "2",
+   "3",
+   "5"
+  ],
+  "p_type": [
+   "1",
+   "2"
+  ],
+  "p_unit": [
+   "1",
+   "2"
+  ],
+  "pay_type": [
+   ""
+  ],
+  "payment_ai": [
+   "0",
+   "15000",
+   "3800"
+  ],
+  "payment_ai_discount": [
+   "0"
+  ],
+  "payment_count": [
+   "13"
+  ],
+  "payment_discount": [
+   "0",
+   "435",
+   "4550"
+  ],
+  "payment_dr": [
+   "0"
+  ],
+  "payment_hs": [
+   "105632",
+   "108780",
+   "112900",
+   "122656",
+   "142104",
+   "154793",
+   "158400",
+   "179280",
+   "298465",
+   "82115",
+   "88640"
+  ],
+  "payment_hs_ai": [
+   "34000"
+  ],
+  "payment_iv": [
+   "0",
+   "17375",
+   "3500"
+  ],
+  "payment_re": [
+   "0"
+  ],
+  "payment_so": [
+   "255065"
+  ],
+  "payment_sr": [
+   "0"
+  ],
+  "payment_total": [
+   "105632",
+   "108780",
+   "112900",
+   "119780",
+   "137656",
+   "145604",
+   "154793",
+   "158400",
+   "179280",
+   "243870",
+   "298465",
+   "30735",
+   "310805",
+   "36310",
+   "421024",
+   "425715",
+   "43200",
+   "496180",
+   "560",
+   "56470",
+   "64753",
+   "85915",
+   "86450",
+   "88640",
+   "9000",
+   "9785"
+  ],
+  "pm_type": [
+   "1",
+   "10",
+   "15",
+   "16",
+   "2",
+   "4"
+  ],
+  "pmtype_id": [
+   "1",
+   "15",
+   "2",
+   "5",
+   "7",
+   "BC",
+   "FT",
+   "SV",
+   "TP",
+   "WS"
+  ],
+  "production_by_building_1_qty": [
+   "1094",
+   "463",
+   "745",
+   "937"
+  ],
+  "production_by_building_1_value": [
+   "54908",
+   "80455",
+   "89996",
+   "98420"
+  ],
+  "production_by_building_2_qty": [
+   "164",
+   "180",
+   "182",
+   "248"
+  ],
+  "production_by_building_2_value": [
+   "56672",
+   "69692",
+   "73484",
+   "80220"
+  ],
+  "production_by_building_3_qty": [
+   "380",
+   "388"
+  ],
+  "production_by_building_3_value": [
+   "137100",
+   "137716",
+   "140900",
+   "141565"
+  ],
+  "production_by_building_4_qty": [
+   "0"
+  ],
+  "production_by_building_4_value": [
+   "0"
+  ],
+  "production_by_building_5_qty": [
+   "0"
+  ],
+  "production_by_building_5_value": [
+   "0"
+  ],
+  "production_by_building_99_qty": [
+   "0"
+  ],
+  "production_by_building_99_value": [
+   "0"
+  ],
+  "ptype_id": [
+   "1",
+   "15",
+   "19",
+   "2",
+   "20",
+   "21",
+   "23",
+   "25",
+   "26",
+   "27",
+   "28",
+   "29",
+   "31",
+   "32",
+   "33",
+   "42",
+   "BC",
+   "FP",
+   "GL",
+   "MI",
+   "PS",
+   "TF",
+   "TP"
+  ],
+  "social_sale": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "status_payment": [
+   "2",
+   "4"
+  ],
+  "status_send": [
+   "1",
+   "2",
+   "5"
+  ],
+  "type_not_shipping_value": [
+   "16260"
+  ],
+  "type_shipping_value": [
+   "121396"
+  ],
+  "unit_price": [
+   "105",
+   "150",
+   "392",
+   "60",
+   "85"
+  ],
+  "user_type": [
+   "accounting",
+   "admin",
+   "dev",
+   "production",
+   "shippingplan"
+  ]
+ }
+}
