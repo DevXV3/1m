@@ -246,9 +246,13 @@ def main():
             for row in tdata.get("rows", []):
                 if str(row.get("isUse", "1")) in ("0", "False", "false"):
                     continue
-                extra = row.get("branch_name") or row.get("fac_id") or row.get("commission_price") or ""
+                # Factory: prefer the distinguishing branch_name as the display name
+                name = row.get(nk, "")
+                if tname == "Factory" and row.get("branch_name"):
+                    name = row["branch_name"]
+                extra = row.get("fac_id") or row.get("commission_price") or ""
                 con.execute("INSERT INTO ref_value VALUES (?,?,?,?)",
-                            [tname, str(row.get(ck, "")), str(row.get(nk, "")), str(extra)])
+                            [tname, str(row.get(ck, "")), str(name), str(extra)])
 
     # product catalog: types + SKU (real names/specs/PUBLIC price)
     con.execute("CREATE TABLE product_type(ptype_name TEXT, sku_count INTEGER, unit TEXT, "
