@@ -56,6 +56,46 @@ DEPTS = [
 ROLES = ["admin", "dev", "sale", "headofsales", "accounting", "manager", "special",
          "saleandproduction", "production", "stock", "mixconcrete", "shippingplan"]
 
+# ---- curated status-code dictionary (API returns opaque numbers; doc gives meanings) ----
+# derived from doc_facts + observed enum vocab; lets the AI translate codes to Thai.
+STATUS_DICT = [
+    ("order_status", "1", "รอยืนยัน/ร่าง"),
+    ("order_status", "2", "ยืนยันแล้ว/รอดำเนินการ"),
+    ("order_status", "3", "กำลังดำเนินการ"),
+    ("order_status", "4", "รอส่ง/พร้อมส่ง"),
+    ("order_status", "5", "สำเร็จ"),
+    ("order_status", "6", "ยกเลิก"),
+    ("status_payment", "1", "รอชำระ"),
+    ("status_payment", "2", "ชำระมัดจำ"),
+    ("status_payment", "3", "ชำระบางส่วน"),
+    ("status_payment", "4", "ชำระเรียบร้อย"),
+    ("status_payment", "5", "ชำระครบ/ปิดยอด"),
+    ("status_payment", "6", "ยกเลิก"),
+    ("status_send", "1", "รอส่ง"),
+    ("status_send", "2", "กำลังส่ง/ส่งบางส่วน"),
+    ("status_send", "5", "ส่งสำเร็จ"),
+    ("cus_type", "GENERAL", "ลูกค้าทั่วไป"),
+    ("cus_type", "SHOP", "ร้านค้าวัสดุ"),
+    ("cus_type", "COMPANY", "บริษัทรับเหมา"),
+    ("cus_type", "CONTRACTOR", "ผู้รับเหมา"),
+    ("order_payment_type", "CASH", "เงินสด"),
+    ("order_payment_type", "CREDIT", "เครดิต"),
+    ("doc_code", "AI", "ใบมัดจำ/รับเงินล่วงหน้า (มัดจำขั้นต่ำ 30%)"),
+    ("doc_code", "HS", "ใบเสร็จรับเงิน (ลูกค้าเงินสด)"),
+    ("doc_code", "IV", "ใบแจ้งหนี้ (ลูกค้าเครดิต)"),
+    ("doc_code", "BI", "ใบวางบิล"),
+    ("doc_code", "RE", "ใบเสร็จรับเงินของใบวางบิล (เคลียร์เครดิต)"),
+    ("doc_code", "RT", "ใบคืนสินค้า (Return)"),
+    ("doc_code", "SR", "ใบลด/เพิ่มหนี้ (ออกอัตโนมัติตอนอนุมัติคืน)"),
+    ("doc_code", "CL", "ใบเคลม (Claim)"),
+    ("doc_code", "CO", "ใบเปลี่ยนสินค้า (Exchange order)"),
+    ("doc_code", "EX", "เอกสารการเปลี่ยนสินค้า"),
+    ("doc_code", "EO", "ออเดอร์เปลี่ยนสินค้า"),
+    ("doc_code", "DR", "ใบส่งของ = เอกสารตัดสต๊อกด้วย / ใบเพิ่มหนี้ตอนเปลี่ยนสินค้า"),
+    ("doc_code", "SO", "ออเดอร์ขาย (เลข OR- อัตโนมัติ)"),
+    ("doc_code", "QT", "ใบเสนอราคา (ค้าง >31 วัน auto-cancel)"),
+]
+
 # ---- curated AI data-needs per dept (what an assistant must know + where it lives) ----
 AI_NEEDS = [
     ("sales", "ราคาสินค้าปัจจุบันต่อหน่วย/ต่อประเภทลูกค้า", "/api/product, /api/producttype", "product, producttype", "ทำใบเสนอราคา — ต้องได้ราคาสด ไม่ใช้ราคาในเอกสารเก่า"),
@@ -80,12 +120,15 @@ def main():
     db = load("db_schema.json", {})
     obs = load("web_observations.json", {})
     smp = load("api_samples.json", {})
+    ref = load("ref_data.json", {})
+    cat = load("products_catalog.json", {})
 
     con = duckdb.connect(DB)
     con.execute("BEGIN")
     for t in ("dept", "role", "doc_fact", "workflow", "workflow_step", "api_module",
               "api_endpoint", "menu", "screen", "db_table", "db_column", "db_fk",
-              "api_observation", "api_sample", "enum_value", "ai_data_need", "meta_source"):
+              "api_observation", "api_sample", "enum_value", "ai_data_need", "meta_source",
+              "ref_table", "ref_value", "status_dict", "product_sku", "product_type"):
         con.execute(f"DROP TABLE IF EXISTS {t}")
 
     con.execute("CREATE TABLE dept(code TEXT, name_th TEXT, summary_th TEXT)")
@@ -187,6 +230,49 @@ def main():
     con.executemany("INSERT INTO enum_value VALUES (?,?)",
                     [(k, v) for k, vs in smp.get("enum_vocab", {}).items() for v in vs])
 
+    # reference/master data (controlled vocabulary) + flattened code->name values
+    con.execute("CREATE TABLE ref_table(table_name TEXT, row_count INTEGER, columns TEXT)")
+    con.execute("CREATE TABLE ref_value(ref_table TEXT, code TEXT, name_th TEXT, extra TEXT)")
+    NAMECOL = {"Factory": ("fac_id", "fac_name"), "ProductType": ("ptype_id", "ptype_name"),
+               "ProductMainType": ("pmtype_id", "pmtype_name"), "Units": ("unit_name", "unit_name"),
+               "UserType": ("user_type", "user_type_th"), "Store": ("id", "store_name"),
+               "Building": ("id", "building_name"), "CommissionCostType": ("id", "commission_type_name"),
+               "CommissionUnitType": ("id", "commission_unit_type_name")}
+    for tname, tdata in (ref.get("tables") or {}).items():
+        con.execute("INSERT INTO ref_table VALUES (?,?,?)",
+                    [tname, tdata.get("row_count", 0), " ".join(tdata.get("columns", []))])
+        ck, nk = NAMECOL.get(tname, (None, None))
+        if ck:
+            for row in tdata.get("rows", []):
+                if str(row.get("isUse", "1")) in ("0", "False", "false"):
+                    continue
+                extra = row.get("branch_name") or row.get("fac_id") or row.get("commission_price") or ""
+                con.execute("INSERT INTO ref_value VALUES (?,?,?,?)",
+                            [tname, str(row.get(ck, "")), str(row.get(nk, "")), str(extra)])
+
+    # product catalog: types + SKU (real names/specs/PUBLIC price)
+    con.execute("CREATE TABLE product_type(ptype_name TEXT, sku_count INTEGER, unit TEXT, "
+                "price_min DOUBLE, price_max DOUBLE)")
+    con.execute("CREATE TABLE product_sku(product_id TEXT, ptype_name TEXT, name_th TEXT, "
+                "size TEXT, thickness TEXT, area TEXT, price DOUBLE, unit TEXT)")
+    for tp, td in (cat.get("by_type") or {}).items():
+        con.execute("INSERT INTO product_type VALUES (?,?,?,?,?)",
+                    [tp, td.get("sku_count"), td.get("unit"),
+                     td.get("price_min"), td.get("price_max")])
+        for s in td.get("skus", []):
+            try:
+                price = float(s.get("price")) if s.get("price") not in (None, "") else None
+            except (TypeError, ValueError):
+                price = None
+            con.execute("INSERT INTO product_sku VALUES (?,?,?,?,?,?,?,?)",
+                        [s.get("product_id"), tp, s.get("name"), str(s.get("size") or ""),
+                         str(s.get("thickness") or ""), str(s.get("area") or ""), price,
+                         s.get("unit")])
+
+    # status/document code dictionary (opaque API numbers -> Thai meaning)
+    con.execute("CREATE TABLE status_dict(field TEXT, code TEXT, meaning_th TEXT)")
+    con.executemany("INSERT INTO status_dict VALUES (?,?,?)", STATUS_DICT)
+
     # curated AI needs
     con.execute("CREATE TABLE ai_data_need(dept TEXT, need_th TEXT, source_api TEXT, "
                 "source_table TEXT, note_th TEXT)")
@@ -212,7 +298,8 @@ def main():
     print("\n== onem_meta.duckdb built ==")
     for t in ("dept", "doc_fact", "workflow", "api_module", "api_endpoint", "menu",
               "screen", "db_table", "db_column", "db_fk", "api_observation",
-              "api_sample", "enum_value", "ai_data_need"):
+              "api_sample", "enum_value", "ai_data_need", "ref_table", "ref_value",
+              "product_type", "product_sku", "status_dict"):
         n = con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]
         print(f"  {t:18} {n}")
     con.close()
